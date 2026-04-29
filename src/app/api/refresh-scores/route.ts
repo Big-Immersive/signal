@@ -155,7 +155,7 @@ export async function POST(request: Request) {
       // previous one, but when batches land together this saves 90% on the
       // scoring-schema overhead.
       providerOptions: {
-        anthropic: { cacheControl: { type: "ephemeral" } },
+        openrouter: { cacheControl: { type: "ephemeral" } },
       },
       prompt: `Score each contact's outreach priority from 1-10 based on these dimensions:
 

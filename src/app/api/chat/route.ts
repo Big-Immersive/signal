@@ -97,9 +97,9 @@ export async function POST(request: Request) {
       ...modelMessages[lastIdx],
       providerOptions: {
         ...modelMessages[lastIdx].providerOptions,
-        anthropic: {
-          ...(modelMessages[lastIdx].providerOptions?.anthropic ?? {}),
-          cacheControl: { type: "ephemeral" },
+        openrouter: {
+          ...(modelMessages[lastIdx].providerOptions?.openrouter ?? {}),
+          cacheControl: { type: "ephemeral", ttl: "1h" },
         },
       },
     };
@@ -125,9 +125,10 @@ export async function POST(request: Request) {
         stopWhen: stepCountIs(15),
         // Cache the system prompt + tool definitions (~30k stable tokens) across
         // turns in a conversation. Follow-up turns read them at ~10% of input cost.
+        // 1h TTL costs 2x to write but survives 12x longer than the 5min default.
         providerOptions: {
-          anthropic: {
-            cacheControl: { type: "ephemeral" },
+          openrouter: {
+            cacheControl: { type: "ephemeral", ttl: "1h" },
           },
         },
         experimental_context: { writer },

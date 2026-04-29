@@ -41,7 +41,7 @@ export async function composeEmail(
       system: buildEmailSystemPrompt(skills ?? []),
       prompt: buildComposeUserPrompt(userPromptInput),
       providerOptions: {
-        anthropic: {
+        openrouter: {
           // Cache the stable system prompt across the fan-out batch.
           cacheControl: { type: "ephemeral" },
         },
