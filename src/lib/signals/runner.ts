@@ -1,4 +1,4 @@
-import { anthropic } from "@ai-sdk/anthropic";
+import { customModel, fastModel } from "@/lib/ai/model";
 import { generateObject, jsonSchema } from "ai";
 import { createClient } from "@/lib/supabase/server";
 import { withTimeout } from "@/lib/utils/timeout";
@@ -172,7 +172,7 @@ async function executeStep(
         return null;
       }
       const { object } = await generateObject({
-        model: anthropic(step.model ?? "claude-haiku-4-5-20251001"),
+        model: step.model ? customModel(step.model) : fastModel(),
         schema: jsonSchema(step.schema),
         prompt: `${step.prompt}\n\n---\n\n${source.slice(0, 30_000)}`,
       });

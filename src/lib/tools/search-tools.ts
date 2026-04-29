@@ -1,4 +1,4 @@
-import { anthropic } from "@ai-sdk/anthropic";
+import { fastModel } from "@/lib/ai/model";
 import { generateObject, tool } from "ai";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
@@ -649,7 +649,7 @@ export const discoverCompanies = tool({
       .join("\n\n");
 
     const { object: extracted, usage } = await generateObject({
-      model: anthropic("claude-haiku-4-5-20251001"),
+      model: fastModel(),
       schema: z.object({
         companies: z.array(
           z.object({

@@ -1,4 +1,4 @@
-import { anthropic } from "@ai-sdk/anthropic";
+import { fastModel } from "@/lib/ai/model";
 import { generateObject } from "ai";
 import { z } from "zod";
 import {
@@ -51,7 +51,7 @@ export async function filterRelevantResults(
 
   try {
     const { object, usage } = await generateObject({
-      model: anthropic("claude-haiku-4-5-20251001"),
+      model: fastModel(),
       schema: z.object({
         relevant: z
           .array(z.number().int())

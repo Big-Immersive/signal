@@ -1,4 +1,4 @@
-import { anthropic } from "@ai-sdk/anthropic";
+import { fastModel } from "@/lib/ai/model";
 import { generateObject } from "ai";
 import { z } from "zod";
 import { WebExtractionService } from "@/lib/services/web-extraction-service";
@@ -159,7 +159,7 @@ export async function findPeopleOnDomain(
 
   try {
     const { object, usage } = await generateObject({
-      model: anthropic("claude-haiku-4-5-20251001"),
+      model: fastModel(),
       schema: z.object({
         people: z.array(
           z.object({
@@ -289,7 +289,7 @@ export async function filterContactsByCompany(
 
   try {
     const { object, usage } = await generateObject({
-      model: anthropic("claude-haiku-4-5-20251001"),
+      model: fastModel(),
       schema: z.object({
         verified: z.array(
           z.object({

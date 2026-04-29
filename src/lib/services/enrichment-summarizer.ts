@@ -1,4 +1,4 @@
-import { anthropic } from "@ai-sdk/anthropic";
+import { fastModel } from "@/lib/ai/model";
 import { generateObject } from "ai";
 import { z } from "zod";
 
@@ -12,7 +12,6 @@ import {
   wrapUntrusted,
 } from "@/lib/prompt-safety";
 
-const MODEL_ID = "claude-haiku-4-5-20251001";
 const MODEL_LABEL = "haiku";
 
 interface SearchResultLike {
@@ -41,7 +40,7 @@ export async function summarizeWebsite(input: {
 
   try {
     const { object, usage } = await generateObject({
-      model: anthropic(MODEL_ID),
+      model: fastModel(),
       schema: z.object({
         summary: z
           .string()
@@ -95,7 +94,7 @@ export async function summarizeSearchResults<T extends SearchResultLike>(
 
   try {
     const { object, usage } = await generateObject({
-      model: anthropic(MODEL_ID),
+      model: fastModel(),
       schema: z.object({
         summaries: z.array(
           z.object({

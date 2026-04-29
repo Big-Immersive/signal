@@ -77,13 +77,15 @@ supabase link --project-ref <your-project-ref>
 supabase db push
 ```
 
-## 4. Anthropic key
+## 4. OpenRouter key
 
-Get a key at [console.anthropic.com](https://console.anthropic.com) and paste into `.env.local`:
+The app routes all LLM calls through [OpenRouter](https://openrouter.ai), so you can swap models (Anthropic, OpenAI, etc.) without touching code. Get a key at [openrouter.ai/keys](https://openrouter.ai/keys) and paste into `.env.local`:
 
 ```
-ANTHROPIC_API_KEY=sk-ant-api03-...
+OPENROUTER_API_KEY=sk-or-v1-...
 ```
+
+Defaults to Anthropic Sonnet/Haiku/Opus across the three model tiers. Override per tier via `LLM_MODEL_SMART`, `LLM_MODEL_FAST`, `LLM_MODEL_PREMIUM` — see `.env.example` for details and OpenRouter's [model catalog](https://openrouter.ai/models) for current IDs.
 
 At this point, you have enough to run `pnpm dev` and see the app boot.
 
